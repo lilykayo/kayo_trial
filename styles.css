@@ -1,32 +1,64 @@
-/* styles.css */
+/* Set background image for the body and cover the entire viewport */
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f4f4f9;
+    font-family: '8BIT WONDER', sans-serif; /* Apply 8BIT WONDER font */
+    background-image: url('pictures/background.jpg'); /* Replace with your image file path */
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Do not repeat the background image */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    height: 100vh; /* Set height of the body to fill the viewport */
+    overflow: hidden; /* Disable scrollbar */
 }
-header, footer {
-    background-color: #4CAF50;
-    color: white;
+
+/* Container for centering content */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding: 10px 0;
+    margin-top: 50px;
 }
-main {
-    margin-top: 20px;
+
+.image-text {
+    font-family: 'Press Start 2P', sans-serif;
+    margin-bottom: 20px;
+    color: #333; /* Dark text color */
+    font-size: 20px; /* Adjust font size */
+    line-height: 1.6; /* Adjust line height for readability */
 }
-h1 {
-    color: #333;
+
+/* Container for buttons with wrapping and spacing */
+.buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; /* Space between buttons */
 }
-p {
-    color: #666;
-}
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
+
+/* Style for buttons */
+.buttons-container button {
     padding: 10px 20px;
-    cursor: pointer;
     font-size: 16px;
+    cursor: pointer;
 }
-button:hover {
-    background-color: #45a049;
+
+/* Style for both main GIF and custom GIF */
+.gif, .custom-gif {
+    height: 150px; /* Adjust the width as needed */
+    width: auto; /* Maintain aspect ratio */
+    image-rendering: pixelated; /* Prevent blurriness */
+}
+
+/* Style specifically for main GIF */
+.gif {
+    margin-right: 20px;
+}
+
+/* Animation for custom GIF */
+.custom-gif {
+    position: absolute;
+    right: -310px; /* Start from outside the screen */
+    transition: right 0.5s ease-out; /* Smooth transition */
+	top: 50px;
 }
