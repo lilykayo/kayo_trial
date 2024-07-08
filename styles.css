@@ -1,6 +1,6 @@
 /* Set background image for the body and cover the entire viewport */
 body {
-    font-family: '8BIT WONDER', sans-serif; /* Apply 8BIT WONDER font */
+    font-family: 'Press Start 2P', sans-serif; /* Apply Press Start 2P font */
     background-image: url('pictures/background.jpg'); /* Replace with your image file path */
     background-size: cover; /* Cover the entire viewport */
     background-position: center; /* Center the background image */
@@ -9,6 +9,7 @@ body {
     padding: 0; /* Remove default padding */
     height: 100vh; /* Set height of the body to fill the viewport */
     overflow: hidden; /* Disable scrollbar */
+    user-select: none;
 }
 
 /* Container for centering content */
@@ -23,6 +24,8 @@ body {
 .text-container {
     font-family: 'Press Start 2P', sans-serif;
     margin-bottom: 20px;
+	margin-right: 10px;
+	margin-left: 10px;
     color: #333; /* Dark text color */
     font-size: 20px; /* Adjust font size */
     line-height: 1.6; /* Adjust line height for readability */
@@ -36,7 +39,6 @@ body {
     gap: 10px; /* Space between buttons */
 }
 
-/* Style for buttons */
 .buttons-container button {
     padding: 10px 20px;
     font-size: 16px;
@@ -60,5 +62,68 @@ body {
     position: absolute;
     right: -310px; /* Start from outside the screen */
     transition: right 0.5s ease-out; /* Smooth transition */
-	top: 50px;
+    top: 50px;
+}
+
+button {
+    font-family: 'Press Start 2P', cursive;
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    background-color: #008cba;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #005f5f;
+}
+
+button.selected {
+    background-color: #ffcc00; /* Highlight color for selected button */
+    color: black;
+}
+
+.question-box {
+    background-color: #fff;
+    border: 2px solid #000;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    top: 1000px; /* Position 300px from the top */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Press Start 2P', cursive;
+    transition: top 0.5s ease-out; /* Smooth transition */
+}
+
+.question-box.show {
+    top: 320px; /* Center vertically on screen */
+}
+
+
+.question-box p {
+    margin-bottom: 20px;
+}
+
+.question-box .answer-buttons {
+    display: flex;
+    justify-content: center;
+    top: 10px;
+    gap: 10px;
+}
+
+.question-box button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #008cba;
+    color: white;
+    cursor: pointer;
+}
+
+.question-box button:hover {
+    background-color: #005f5f;
 }
