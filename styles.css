@@ -12,6 +12,18 @@ body {
     user-select: none;
 }
 
+.dark-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.35); /* Initial opacity */
+    z-index: 1; /* Ensure it overlays the background */
+    transition: background-color 0.5s; /* Smooth transition */
+}
+
+
 /* Container for centering content */
 .container {
     display: flex;
@@ -127,3 +139,82 @@ button.selected {
 .question-box button:hover {
     background-color: #005f5f;
 }
+
+
+.special-button {
+    background-color: #32CD32; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Make it round */
+    padding: 10px 20px; /* Adjust padding as needed */
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    margin-top: 10px; /* Space from other elements */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.special-button:hover {
+    background-color: #228B22; /* Darker green on hover */
+}
+
+.video-container {
+    margin-top: 10px; /* Space from other elements */
+    display: flex;
+    justify-content: center;
+}
+
+.video-container video {
+    width: 100%; /* Adjust width as needed */
+    max-width: 400px; /* Adjust max-width as needed */
+    border: 2px solid #000; /* Optional border for styling */
+    border-radius: 10px; /* Optional rounded corners */
+}
+
+/* CSS for the special boxes */
+.special-box-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.special-box-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.special-box {
+    width: 50px;
+    height: 50px;
+    background-color: #4CAF50;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    cursor: pointer;
+    user-select: none; /* Prevent text selection */
+}
+
+.box-label {
+    font-size: 14px;
+    color: #333;
+}
+
+
+
+.final-message-container {
+    font-family: 'Press Start 2P', sans-serif;
+    color: white;
+    text-shadow: 0 0 5px white, 0 0 10px white; /* Reduced glowing effect */
+    font-size: 24px;
+    white-space: pre-wrap; /* Allow text to wrap within the container */
+    max-width: 700px; /* Limit width to 700px */
+    left: 30%;
+    position: fixed;
+    line-height: 1.6; /* Increased line height for more space between lines */
+}
+
+
+

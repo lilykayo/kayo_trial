@@ -8,8 +8,13 @@
     <link rel="stylesheet" href="styles.css">
     <!-- Import the Press Start 2P font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
 </head>
 <body>
+    <div class="dark-overlay", style="display:none;"></div>
     <div class="container">
         <div class="image-container">
             <!-- Use a relative path for the local GIF file -->
@@ -22,6 +27,7 @@
             <!-- Buttons will be dynamically added here -->
         </div>
     </div>
+	<div class="final-message-container"></div>
 
     <!-- Add an audio element with autoplay -->
     <audio id="background-audio" src="audio/background.mp3" autoplay loop></audio>
