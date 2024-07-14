@@ -216,5 +216,17 @@ button.selected {
     line-height: 1.6; /* Increased line height for more space between lines */
 }
 
-
-
+.hidden-message-container {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}

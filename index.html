@@ -14,20 +14,23 @@
     </script>
 </head>
 <body>
-    <div class="dark-overlay", style="display:none;"></div>
+    <div class="dark-overlay" style="display:none;"></div>
     <div class="container">
         <div class="image-container">
             <!-- Use a relative path for the local GIF file -->
             <img src="pictures/kayo_idle_1.gif" alt="GIF Image" class="gif" id="main-gif">
         </div>
         <div class="text-container">
-            <p>Hello, this is this is... Welcome to Kayo's Trial!!<br>Tell me who you are... Who you are...</p>
+            <p>Hello, this is this is...<br>Welcome to Kayo's Trial!!<br>Tell me who you are...<br>Who you are...</p>
         </div>
         <div class="buttons-container" id="buttons-container">
             <!-- Buttons will be dynamically added here -->
         </div>
     </div>
 	<div class="final-message-container"></div>
+    <div class="hidden-message-container" id="hidden-message-container" style="display:none;">
+        Congratulation!<br>You solved:<br><br><span id="hidden-correct-answers"></span>/<span id="hidden-total-questions"></span><br><br>question(s) correctly!
+    </div>
 
     <!-- Add an audio element with autoplay -->
     <audio id="background-audio" src="audio/background.mp3" autoplay loop></audio>

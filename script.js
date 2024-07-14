@@ -2,6 +2,38 @@
 const buttonNames = ["Nuwra", "Adum", "Nutella", "Someone else"];
 
 window.current_question = 0;
+window.solved_correctly = 0;
+
+window.dialogue = {
+    "Nuwra": [
+        "This is Nuwra.<br>Nuwra is my friend.",
+        "She's good with drawing<br>with singing too.",
+        "Nuwra came to my birthday<br>last time. I was happy!",
+        "When she comes back,<br>I will be happy too."
+    ],
+    "Adum": [
+        "This is Adum.<br>Adum is a kid.",
+        "He's in charge of Nuwra.<br>He feeds her.",
+        "He feeds friends too.<br>With cheers. With kind.",
+        "Adum is a smarty."
+    ],
+    "Nutella": [
+        "This is Nutella.<br>He's always yelling.",
+        "He won't admit defeat.<br>But he loves playing.",
+        "He hates it when people<br>give him things.",
+        "But he loves giving things<br>himself. This is funny.",
+		"Recently, he hasn't been<br>giving any news.",
+		"But if he's reading this,<br>kayo is reassured!",
+		"..."
+    ],
+    "Someone else": [
+        "Aw. You weren't in the list...",
+		"Maybe this trial just<br>wasn't intended for you!",
+		"But... that doesn't necessarily<br>mean we're not friends.",
+		"It doesn't mean we are, though,<br>but we could be. We could...",
+		"Kayo don't speak a lot.<br>But she likes lot of people."
+    ]
+};
 
 window.question_list = [
 {
@@ -61,6 +93,27 @@ window.question_list = [
     kayoReacts: ["Haaa, you actually got it!","Tough luck"]
 },
 {
+    kayoSays: "Do you know me well?",
+    text: "What is Lily's favorite game?",
+    choices: ["Castlevania", "Any 3D Zelda", "Super Mario Galaxy", "E.T.", "All (except E.T.)"],
+    correctChoice: "All (except E.T.)",
+    kayoReacts: ["Nope, I like them all!","Nope, I like them all!","Nope, I like them all!","Are you serious?","I like them all differently! (except E.T.)"]
+},
+{
+    kayoSays: "*plug earphones*",
+    text: "Kayo is extremely sensitive to sound",
+    choices: ["True", "False"],
+    correctChoice: "True",
+    kayoReacts: ["Aeee...", "People must know!!!"]
+},
+{
+    kayoSays: "You can't guess that wrong!!",
+    text: "How many plushies Kayo has?",
+    choices: ["1", "6", "16", "44"],
+    correctChoice: "44",
+    kayoReacts: ["Eeeeh??? Just one??", "Cmon that's very low!", "A bit more...", "44 that is correct (for now)"]
+},
+{
     kayoSays: "",
     text: "Lily likes her sister a lot",
     choices: ["Yes", "No"],
@@ -95,30 +148,7 @@ window.question_list = [
     correctChoice: "Yes",
     kayoReacts: ["",""]
 }
-
 ]
-
-window.dialogue = {
-    "Nuwra": [
-        "This is Nuwra. Nuwra is my friend.",
-        "She's good with drawing.<br>She's good with singing.",
-        "Nuwra came to my birthday last time.<br>I was happy.",
-        "When she comes back, I will be happy too.",
-    ],
-    "Adum": [
-        "This is Adum. Adum is a kid.",
-        "He's in charge of Nuwra. He feeds her.",
-        "He feeds friends too. With cheers. With kind.",
-        "Adum is smart.",
-    ],
-    "Nutella": [
-        "This is Nutella. He's always yelling.",
-        "He won't admit defeat. But he loves playing.",
-        "He hates it when people give him things.",
-        "But he loves giving things himself. This is funny.",
-    ],
-    "Someone else": []
-};
 
 // Get references to elements
 const buttonsContainer = document.getElementById('buttons-container');
@@ -162,6 +192,7 @@ function hideElementsAndLoadGif(name) {
 // Function to load custom GIF
 function loadCustomGif(name) {
     window.friend = name;
+	if (window.friend == "Someone else") return;
     
     // Remove existing custom GIF if already loaded
     const existingCustomGif = document.querySelector('.custom-gif');
@@ -266,7 +297,6 @@ function sortSpecialBoxes(clickedBox, container) {
 		labelOrder[clickedIndex] = labelOrder[clickedIndex-1];
 		labelOrder[clickedIndex-1] = tempLabel;
     }
-	console.log(labelOrder);
 }
 
 function playVideo(questionBox) {
@@ -308,7 +338,7 @@ function showQuestionBox() {
 	
     if (current_question === 5) specialButton(questionBox);
 	if (current_question === 7) specialBoxes(questionBox);
-    if (current_question === 11) backgroundAudio.pause();
+    if (current_question === 14) backgroundAudio.pause();
     
     const kayoSays = question_list[current_question]["kayoSays"];
     const text = question_list[current_question]["text"];
@@ -348,6 +378,8 @@ function showQuestionBox() {
 				const expectedOrder = [1, 2, 3, 4];
 				const isCorrect = labelOrder.every((value, index) => value === expectedOrder[index]);
 				if (isCorrect){
+					solved_correctly += 1;
+					console.log(solved_correctly);
 					playSoundEffect("super");
 					questionBox.style.backgroundColor = "#30D030";
 					index = 0;
@@ -360,15 +392,13 @@ function showQuestionBox() {
 			}
 			
 			else{
-				if (current_question === 12){
+				if (current_question === 15){
 					playSoundEffect("amb_1");
 					backgroundAudio.src = "audio/rain.mp3";
 					backgroundAudio.pause();
 					setTimeout(() => {
 						const mainGifElement = document.getElementById("main-gif");
-						if (mainGifElement && mainGifElement.parentNode) {
-							mainGifElement.parentNode.removeChild(mainGifElement);
-						}
+						mainGifElement.style.display = "none";
 						
 						const customGifElement = document.getElementById("custom-gif");
 						if (customGifElement && customGifElement.parentNode) {
@@ -387,6 +417,10 @@ function showQuestionBox() {
 				}
 				else{
 					if (correctChoice === undefined || choice === correctChoice) {
+						if (choice === correctChoice && window.current_question < 11){
+							solved_correctly += 1;
+							console.log(solved_correctly);
+						}
 						playSoundEffect("correct");
 						questionBox.style.backgroundColor = "#30D030";
 					} else {
@@ -431,9 +465,133 @@ function highlightSelectedButton(selectedButton, questionBox) {
 
 function displayFinalMessage() {
     const messages = [
-        "This is the first message. This message will be long. Longer than all of this. Can you believe it? So many words. I can't take this at all.",
-        "Here's the second message.",
-        "And the final message."
+		"- A while ago",
+		
+		"\"Your sister has dark ideas\", mom said in the car. Dark ideas? But she's so smiling...",
+		"She's just a teenager, with a phone. This is normal. I hope she gets better.",
+		
+		"- A while ago",
+		
+		"Mom can't see my sister. I can't either. Nobody can. She was sent to the mental hospital. Nobody knows what she have.",
+		"She was still smiling and looked like she enjoyed activities, although she looked down at dinner.",
+		"Doctors didn't give information. They were just asking stupid question to try and understand. They are useless.",
+		"They also lied. We can't see her Friday. My brother hate them. My mom starts crying.",
+		"She eventually says she have to look strong before dad comes home and she stops crying. This is sad.",
+		
+		"- April 12th",
+		
+		"Mom is crying downstairs. At first, Lily is pissed. She wants peace. But she realizes that mom usualy never cries.",
+		"So this must be important. Her sister is making heavy breathing noises. Mom is crying.",
+		"Dad sent her to the hospital. People can't help her there but she is safe. She is safe.",
+		"Lily comes downstairs with her mom. She's crying in her bed. She's bad at helping emotionally because she's autistic and she can't talk.",
+		"Mom appreciated what she was trying to do. Maybe there was hope. But that's not the idea she was grabbing on.",
+		"My sister was either gonna be unhappy for life, or not living at all.",
+		
+		"- A while ago",
+		
+		"There isn't much happening around my sister. We played a scam Kirby game on the raspberry. Just because it was fun.",
+		"At first, Lily wanted to talk to her. Because they have a secret link. Maybe she could put her finger on new things others couldn't find.",
+		"Maybe her sister would confess a little more.",
+		"But alas, she looked fine and she went along instead.",
+		
+		"- May 7th, 17:00",
+		
+		"We went to island. Island is a nice place to play games, go at beach. Swim. I don't like swimming but they do.",
+		"Water is still cold, it's not summer. I'm really sensitive to cold water.",
+		"I felt happy as we went to island's town to buy a few things. Books and tee-shirt. And food.",
+		"My little sister was with us, parents got her a new jacket. My older sister joined us later on.",
+		"We came to a park with a junk food stand nearby.",
+		"We got lucky, we were served first. Little sister was at the fitness section of the park.",
+		"There was a machine that made you feel like flying, she loved it. I could see her in the distance.",
+		"\"She's happy\", mom said with a relieved smile.",
+		"After some time, she joined me at the game section with my older sister, who's as childish as me. We played pushing her on some kind of tire swing.",
+		
+		"- May 11th",
+		
+		"We came back from our trip. That felt relieving, and Kayo can come back to school.",
+		"She studies well, although this is overwhelming sometimes. Everything feels normal.",
+		
+		"- May 16th, 07:30",
+		
+		"Mom is driving me to school. She says something weird happened on my sister's phone, she uninstalled What's App.",
+		"She wanted to question her tonight to know what's going on. She's worried, Kayo thought that wasn't cool to spy.",
+		
+		"- May 16th, 09:21",
+		
+		"Someone left for vacation.",
+		
+		"- May 16th, 13:34",
+		
+		"Dad is calling on phone. This is scary, he usually never calls because he knows Lily don't like calls a lot.",
+		
+		"- May 16th, afternoon",
+		
+		"They are crying in the kitchen. Kayo's family. Kayo thought she didn't hear well what dad said on phone.",
+		"Her sister's favorite doudou was lying on the table. Family was grabbing it strong. She realized.",
+		"She was falling in tears. Mom went to hug her, then dad for a while.",
+		
+		"- May 17th",
+		
+		"My older sister arrived with her husband. He gave condolences before leaving us be, as a family.",
+		"I went downstairs. Older sister looked at me, eyes full of tears.",
+		"We hugged for a very long time. At some point, she looked at me and said: \"no words...?\" with a sad face and broken voice.",
+		"I shaked my head to say no. I could not talk.",
+
+		"- May 18th",
+
+		"There are a lot of pictures of her everywhere. Kayo don't like that.",
+
+		"- May 24th",
+
+		"This is the first time Kayo sees someone being buried. She felt atrocious, like she couldn't tell what was real around her.",
+		"At least she didn't mind letting it out, crying. People were not important at that point.",
+		"Her family is big, big. Nobody ever died, she was scared that this might happen.",
+		"Nobody would have thought the 13 years old little girl would leave first.",
+		"Before she was buried, we could tell her goodbye in her coffin.",
+		"Kayo didn't want to see her and just stayed in the room, coffin hidden by a paravent. Music and smell was relaxing.",
+		"\"We are going to close the coffin. This is your last occasion to see her.\"",
+		"Older sister took my hand and said \"let's come see her together\". I was scared but I felt like doing it.",
+		"I entered the room. I went around the paravent. I fell, sister caught me. I couldn't support the sight.",
+		"She just looked like she was asleep, except in that body, there wasn't my sister anymore. Her cold hands holding flowers couldn't move anymore.",
+		"She wouldn't be able to make me laugh, feel disgusted or anything anymore. That was a shock, they made me sit down.",
+		"I took a pushbutton from my pocket before leaving. I left it in the coffin, with her. Inside it, a voice recording. One final gift.",
+		
+		"- A while ago",
+
+		"We do grief each our way, my mom said. I don't go see her at the cemetery. Am I a bad person?",
+
+		"- A while ago",
+
+		"Mom was driving me in the car.",
+		"People from work made her a book with words from everyone to support her.",
+		"There are a lot of pages left, so she will write memories she has about her before she forgets.",
+		"I said I could help her filling it. But I don't know what to put in it. I missed so many memories.",
+
+		"- July 6th",
+
+		"We were watching a western at friend's house. \"Once Upon a Time in the West\". My friend's favorite western.",
+		"I suggested watching one, he suggested this one.",
+		"In the movie, the lady loses her whole family. Including her son. As they buried him, Kayo noticed this felt similar.",
+		"It was the exact same way her sister was buried. She couldn't move, or talk. Friend asked her a question, but she was in tears and couldn't answer.",
+		"She just sat there watching the movie.",
+
+		"- Now",
+
+		"I'm doing dreams. I hate these dreams. She's alive, I can still do something. I wake up. I can't do anything anymore.",
+		"I hit my bed. I hate my bed. I hate this world. I don't wanna feel this. Give her back. Give me a chance. I haven't took the last one.",
+		"Fuck me. I hate me. I could do so much and didn't take it seriously.",
+		"She was close to me, she was autistic too. We had a connection, and I didn't even talk to her after her first issue.",
+		"I said I would, but she looked fine. She looked fine.",
+
+		"Please. Let me call dad. Tell him to not let her go. To check her bag.",
+
+		"Let me call dad.",
+
+		"I don't want this to happen.",
+
+		"Let me call dad please.",
+		
+		""
     ];
 
     const container = document.querySelector('.final-message-container');
@@ -443,8 +601,12 @@ function displayFinalMessage() {
     let currentWordIndex = 0; // Track the index of the current word
 
     function displayNextMessage() {
+		console.log(currentMessageIndex);
 		container.textContent = ''; // Clear existing content
         if (currentMessageIndex < messages.length) {
+			
+			if (currentMessageIndex === 38) playSoundEffect("vacation");
+			
             const message = messages[currentMessageIndex];
             const words = message.split(' '); // Split message into words
             const messageElement = document.createElement('span');
@@ -466,8 +628,11 @@ function displayFinalMessage() {
 
             typeNextWord();
         } else {
-            // All messages displayed, do something (e.g., navigate to another page)
-            console.log("All messages displayed");
+			document.body.style.backgroundImage = "url('pictures/background.jpg')";
+			const mainGifElement = document.getElementById("main-gif");mainGifElement
+			mainGifElement.src = "pictures/kayo_idle_2.gif";
+			mainGifElement.style.display = "block";
+			showHiddenMessage(window.solved_correctly,10);
         }
     }
 
@@ -531,4 +696,21 @@ function randomizeOverlayOpacity() {
 
     // Start the first change
     changeOpacity();
+}
+
+
+
+
+// Example function to show the hidden message
+function showHiddenMessage(correctAnswers, totalQuestions) {
+    const hiddenMessageContainer = document.getElementById('hidden-message-container');
+    const hiddenCorrectAnswersSpan = document.getElementById('hidden-correct-answers');
+    const hiddenTotalQuestionsSpan = document.getElementById('hidden-total-questions');
+    
+    // Set the text content with the correct answers and total questions
+    hiddenCorrectAnswersSpan.textContent = correctAnswers;
+    hiddenTotalQuestionsSpan.textContent = totalQuestions;
+    
+    // Display the hidden message container
+    hiddenMessageContainer.style.display = 'block';
 }
