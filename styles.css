@@ -28,7 +28,7 @@ body {
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     text-align: center;
     margin-top: 50px;
 }
@@ -102,20 +102,19 @@ button.selected {
     padding: 20px;
     text-align: center;
     position: fixed;
-    top: 1000px; /* Position 300px from the top */
+    top: 2000px; /* Initially off the screen */
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
     max-width: 400px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     font-family: 'Press Start 2P', cursive;
-    transition: top 0.5s ease-out; /* Smooth transition */
+    transition: top 0.5s ease-out, opacity 0.5s ease, transform 0.5s ease; /* Combined transitions */
 }
 
 .question-box.show {
     top: 320px; /* Center vertically on screen */
 }
-
 
 .question-box p {
     margin-bottom: 20px;
@@ -211,7 +210,7 @@ button.selected {
     font-size: 24px;
     white-space: pre-wrap; /* Allow text to wrap within the container */
     max-width: 700px; /* Limit width to 700px */
-    left: 30%;
+    left: 10%;
     position: fixed;
     line-height: 1.6; /* Increased line height for more space between lines */
 }
