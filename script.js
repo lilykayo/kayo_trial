@@ -546,7 +546,7 @@ function displayFinalMessage() {
 		"This is the first time Kayo sees someone being buried. She felt atrocious, like she couldn't tell what was real around her.",
 		"At least she didn't mind letting it out, crying. People were not important at that point.",
 		"Her family is big, big. Nobody ever died, she was scared that this might happen.",
-		"Nobody would have thought the 13 years old little girl would leave first.",
+		"Nobody would have thought the little one would leave first.",
 		"Before she was buried, we could tell her goodbye in her coffin.",
 		"Kayo didn't want to see her and just stayed in the room, coffin hidden by a paravent. Music and smell was relaxing.",
 		"\"We are going to close the coffin. This is your last occasion to see her.\"",
